@@ -4,16 +4,25 @@ import YTSearch from 'youtube-api-search';
 import SearchBar from './components/search_bar';
 const API_KEY = 'AIzaSyAsVIDcwdBi-VROB79QPDbxMKL0TL0Xw4M';
 
-YTSearch({key: API_KEY, term: 'surfboards'}, function(data) {
-  console.log(data);
-})
+class App extends Component {
+  
+  constructor(props) {
+    super(props);
+    
+    this.state = { videos: [] }
 
-const App = () => {
-  return (
-    <div>
-      <SearchBar/>
-    </div>
-  );
+    YTSearch({key: API_KEY, term: 'surfboards'}, videos => {
+      this.setState({ videos });
+    })
+  }
+  
+  render() {
+    return (
+      <div>
+        <SearchBar/>
+      </div>
+    );
+  }
 }
 
 React.render(<App />, document.querySelector('.container'));
